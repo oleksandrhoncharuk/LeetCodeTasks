@@ -1,3 +1,5 @@
+package array_string
+
 /**
  * You are given two integer arrays nums1 and nums2, sorted in non-decreasing order, and two integers m and n, representing the number of elements in nums1 and nums2 respectively.
  *
@@ -52,9 +54,10 @@ fun merge(nums1: IntArray, m: Int, nums2: IntArray, n: Int): Unit {
     } else {
         var i = 0
         var j = 0
-        while(i < nums1.size) {
+
+        while(i < nums1.size && j < nums2.size) {
             when {
-                nums1[i] == 0 -> {
+                nums1[i] == 0 && i >= m + j -> {
                     nums1[i] = nums2[j]
                     i++
                     j++
@@ -62,7 +65,7 @@ fun merge(nums1: IntArray, m: Int, nums2: IntArray, n: Int): Unit {
 
                 nums1[i] < nums2[j] -> i++
 
-                nums1[i] == nums2[j] -> {
+                nums1[i] >= nums2[j] -> {
                     nums1.insertAt(i, nums2[j])
                     i++
                     j++
@@ -105,10 +108,25 @@ fun main(args:Array<String>) {
 
 
 //    Input: nums1 = [0], m = 0, nums2 = [1], n = 1
-    val nums1 = intArrayOf()
-    val m = 0
-    val nums2 = intArrayOf(1)
-    val n = 1
+//    val nums1 = intArrayOf()
+//    val m = 0
+//    val nums2 = intArrayOf(1)
+//    val n = 1
+
+//    val nums1 = intArrayOf(2,0)
+//    val m = 1
+//    val nums2 = intArrayOf(1)
+//    val n = 1
+
+    val nums1 = intArrayOf(-1, 0, 0, 3, 3, 3, 0, 0)
+    val m = 6
+    val nums2 = intArrayOf(1, 2, 3)
+    val n = 3
+
+//    val nums1 = intArrayOf(-1,0,0,0,3,0,0,0,0,0,0)
+//    val m = 5
+//    val nums2 = intArrayOf(-1,-1,0,0,1,2)
+//    val n = 6
 
     merge(nums1, m, nums2, n)
 }
