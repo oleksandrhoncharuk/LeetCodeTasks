@@ -93,7 +93,7 @@ fun IntArray.insertAt(index: Int, value: Int) {
 }
 
 
-fun main(args:Array<String>) {
+fun main(args: Array<String>) {
 //     nums1 = [1,2,3,0,0,0], m = 3, nums2 = [2,5,6], n = 3
 //    val nums1 = intArrayOf(1,2,3,0,0,0)
 //    val m = 3

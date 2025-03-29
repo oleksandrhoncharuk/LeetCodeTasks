@@ -62,7 +62,7 @@ fun moveToEnd(nums: IntArray, index: Int) {
 
 }
 
-fun main(args:Array<String>) {
+fun main(args: Array<String>) {
     val nums = intArrayOf(3,2,2,3)
     val `val` = 3
     val k = removeElement(nums, `val`)
