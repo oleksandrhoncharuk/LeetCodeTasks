@@ -97,14 +97,14 @@ fun IntArray.moveEnd(index: Int, value: Int) {
     this[this.size - 1] = value
 }
 
-fun main(args: Array<String>) {
-//    [0,0,1,1,1,2,2,3,3,4]
-    val nums = intArrayOf(0,0,1,1,1,2,2,3,3,4)
-
-    val k = removeDuplicates(nums)
-    println(k)
-    println("__________")
-    nums.forEach {
-        println(it)
-    }
-}
+//fun main(args: Array<String>) {
+////    [0,0,1,1,1,2,2,3,3,4]
+//    val nums = intArrayOf(0,0,1,1,1,2,2,3,3,4)
+//
+//    val k = removeDuplicates(nums)
+//    println(k)
+//    println("__________")
+//    nums.forEach {
+//        println(it)
+//    }
+//}
