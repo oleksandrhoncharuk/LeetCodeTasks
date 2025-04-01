@@ -31,7 +31,7 @@ package array_string
 fun maxProfit(prices: IntArray): Int {
     if (prices.isEmpty() || prices.size == 1) return 0
 
-    var min = Int.MAX_VALUE
+    var min = prices[0]
     var result = 0
 
 // dumb solution
@@ -44,7 +44,7 @@ fun maxProfit(prices: IntArray): Int {
 //        }
 //    }
 
-    for (i in prices.indices) {
+    for (i in 1 until prices.size) {
         val priceMin = prices[i]
         val priceMax = prices[i]
 
@@ -60,14 +60,21 @@ fun maxProfit(prices: IntArray): Int {
 }
 
 fun main(args: Array<String>) {
-//    val prices = intArrayOf(1,6,4,3,1)
-//    val prices = intArrayOf(2,4,1)
-//    val prices = intArrayOf(2,1,2,1,0,0,1)
-    val prices = intArrayOf(2,1,2,1,0,1,2)
-//    val prices = intArrayOf(7,6,4,3,1)
-//    val prices = intArrayOf(3,2,6,5,0,3)
-//    val prices = intArrayOf(1)
-//    val prices = intArrayOf(1,2)
+    val prices1 = intArrayOf(1,6,4,3,1) //5
+    val prices2 = intArrayOf(2,4,1) //2
+    val prices3 = intArrayOf(2,1,2,1,0,0,1) //1
+    val prices4 = intArrayOf(2,1,2,1,0,1,2) //2
+    val prices5 = intArrayOf(7,6,4,3,1) // 0
+    val prices6 = intArrayOf(3,2,6,5,0,3) // 4
+    val prices7 = intArrayOf(1) // 0
+    val prices8 = intArrayOf(1,2) // 1
 
-    println(maxProfit(prices))
+    println(maxProfit(prices1))
+    println(maxProfit(prices2))
+    println(maxProfit(prices3))
+    println(maxProfit(prices4))
+    println(maxProfit(prices5))
+    println(maxProfit(prices6))
+    println(maxProfit(prices7))
+    println(maxProfit(prices8))
 }
