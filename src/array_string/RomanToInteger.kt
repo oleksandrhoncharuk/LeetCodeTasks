@@ -65,25 +65,32 @@ package array_string
 fun intToRoman(num: Int): String {
     var mNumber = num
     var result = ""
-
     val romanMap = mapOf(
         1 to "I",
+        4 to "IV",
         5 to "V",
+        9 to "IX",
         10 to "X",
+        40 to "XL",
         50 to "L",
+        90 to "XC",
         100 to "C",
+        400 to "CD",
         500 to "D",
+        900 to "CM",
         1000 to "M"
     )
+
     var index = romanMap.size - 1
 
-    while (index > 0) {
+    while (index >= 0) {
         val entry = romanMap.entries.elementAt(index)
 
         if (mNumber / entry.key == 0) {
             index--
         } else {
-            for (i in 0 until mNumber / entry.key) {
+            val counterForSign = mNumber / entry.key
+            for (i in 0 until counterForSign) {
                 result = result.plus(entry.value)
             }
             mNumber %= entry.key
@@ -94,6 +101,25 @@ fun intToRoman(num: Int): String {
     return result
 }
 
+private val romanMap = mapOf(
+    1 to "I",
+    4 to "IV",
+    5 to "V",
+    9 to "IX",
+    10 to "X",
+    40 to "XL",
+    50 to "L",
+    90 to "XC",
+    100 to "C",
+    400 to "CD",
+    500 to "D",
+    900 to "CM",
+    1000 to "M"
+)
+
 fun main() {
-    println(intToRoman(3549))
+    println(intToRoman(3749)) //MMMDCCXLIX
+    println(intToRoman(58)) //LVIII
+    println(intToRoman(1994)) //MCMXCIV
+    println(intToRoman(3549)) //MMMDXLIX
 }
