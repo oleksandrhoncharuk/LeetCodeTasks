@@ -65,36 +65,21 @@ package array_string
 fun intToRoman(num: Int): String {
     var mNumber = num
     var result = ""
-    val romanMap = mapOf(
-        1 to "I",
-        4 to "IV",
-        5 to "V",
-        9 to "IX",
-        10 to "X",
-        40 to "XL",
-        50 to "L",
-        90 to "XC",
-        100 to "C",
-        400 to "CD",
-        500 to "D",
-        900 to "CM",
-        1000 to "M"
-    )
 
-    var index = romanMap.size - 1
+    var index = 0
 
-    while (index >= 0) {
+    while (index < romanMap.entries.size) {
         val entry = romanMap.entries.elementAt(index)
 
         if (mNumber / entry.key == 0) {
-            index--
+            index++
         } else {
             val counterForSign = mNumber / entry.key
             for (i in 0 until counterForSign) {
                 result = result.plus(entry.value)
             }
             mNumber %= entry.key
-            index--
+            index++
         }
     }
 
@@ -102,24 +87,65 @@ fun intToRoman(num: Int): String {
 }
 
 private val romanMap = mapOf(
-    1 to "I",
-    4 to "IV",
-    5 to "V",
-    9 to "IX",
-    10 to "X",
-    40 to "XL",
-    50 to "L",
-    90 to "XC",
-    100 to "C",
-    400 to "CD",
-    500 to "D",
+    1000 to "M",
     900 to "CM",
-    1000 to "M"
+    500 to "D",
+    400 to "CD",
+    100 to "C",
+    90 to "XC",
+    50 to "L",
+    40 to "XL",
+    10 to "X",
+    9 to "IX",
+    5 to "V",
+    4 to "IV",
+    1 to "I"
 )
+
+fun romanToInt(s: String): Int {
+    val entries = romanMap.entries
+    val stringArray = s.split("")
+
+    var result = 0
+
+    for (i in stringArray.indices) {
+        for (j in 0 until romanMap.entries.size) {
+            val romanMapElement = entries.elementAt(j)
+
+            if (romanMapElement.value == stringArray[i]) {
+                if (stringArray[i + 1].biggerThan(romanMapElement.value)) {
+                    result -= romanMapElement.key
+                } else {
+                    result += romanMapElement.key
+                }
+                break
+            }
+        }
+    }
+
+    return result
+}
+
+private fun String.biggerThan(s: String): Boolean {
+    if (!romanMap.containsValue(s) or !romanMap.containsValue(this)) return false
+    val thisKey = romanMap.entries.find { it.value == this }?.key
+    val sKey = romanMap.entries.find { it.value == s }?.key
+
+    return thisKey?.let { key1 ->
+        sKey?.let { key2 ->
+            key1 > key2
+        }
+    } ?: false
+}
 
 fun main() {
     println(intToRoman(3749)) //MMMDCCXLIX
     println(intToRoman(58)) //LVIII
     println(intToRoman(1994)) //MCMXCIV
     println(intToRoman(3549)) //MMMDXLIX
+
+//    println(romanToInt("MMMDCCXLIX"))
+//    println(romanToInt("LVIII"))
+//    println(romanToInt("MCMXCIV"))
+//    println(romanToInt("MMMDXLIX"))
 }
