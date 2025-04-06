@@ -50,4 +50,5 @@ fun isPalindrome(s: String): Boolean {
 
 fun main() {
     println(isPalindrome("A man, a plan, a canal: Panama"))
+    println(isPalindrome("race a car"))
 }
