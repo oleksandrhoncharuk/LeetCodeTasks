@@ -38,18 +38,21 @@ package array_string
  */
 
 fun lengthOfLastWord(s: String): Int {
-    val phrase = s.trim().split(" ")
-    var lastWord = ""
+    var isWordStart = false
+    var symbolCounter = 0
 
-    for (i in 0 until phrase.size) {
-        val currentWord = phrase[i]
+    for (i in s.length - 1 downTo 0) {
+        val currentSymbol = s.elementAt(i)
 
-        if (currentWord == " ") continue
-
-        if (i == phrase.lastIndex) lastWord = currentWord
+        if (isWordStart && currentSymbol == ' ') break
+        if (currentSymbol == ' ') continue
+        else {
+            isWordStart = true
+            symbolCounter++
+        }
     }
 
-    return lastWord.length
+    return symbolCounter
 }
 
 fun main() {
