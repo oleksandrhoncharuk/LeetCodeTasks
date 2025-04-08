@@ -29,23 +29,42 @@ package hashmap
  */
 
 fun isAnagram(s: String, t: String): Boolean {
-    val sSum = s.fold(0) { ac , char ->
-        ac + char.code
+    val sHashMap = HashMap<Char, Int>()
+    val tHashMap = HashMap<Char, Int>()
+    var counter = 0
+
+    s.forEach { char ->
+        sHashMap.setValueFor(char)
     }
 
-    val tSum = t.fold(0) { ac , char ->
-        ac + char.code
+    t.forEach { char ->
+        tHashMap.setValueFor(char)
     }
 
-    return sSum == tSum
+    sHashMap.forEach { (key, value) ->
+        if (tHashMap.contains(key) && tHashMap.getValue(key) == value) {
+            counter++
+        }
+    }
+
+    return counter == sHashMap.size && counter == tHashMap.size
+}
+
+private fun HashMap<Char, Int>.setValueFor(char: Char) {
+    if (this.contains(char)) {
+        val count = this.getValue(char)
+        this[char] = count + 1
+    } else {
+        this[char] = 1
+    }
 }
 
 fun main() {
-//    // "rat", t = "car"
-//    println(isAnagram("rat", "car")) // false
-//
-//    // "anagram", t = "nagaram"
-//    println(isAnagram("anagram", "nagaram")) // true
+    // "rat", t = "car"
+    println(isAnagram("rat", "car")) // false
+
+    // "anagram", t = "nagaram"
+    println(isAnagram("anagram", "nagaram")) // true
 
     // s = "ggii" t = "eekk"
     println(isAnagram("ggii", "eekk")) // false
