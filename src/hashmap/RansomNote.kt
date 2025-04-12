@@ -29,16 +29,6 @@ package hashmap
 
 fun canConstruct(ransomNote: String, magazine: String): Boolean {
     val ransomMap = HashMap<Char, Int>()
-    val magazineMap = HashMap<Char, Int>()
-    var counter = 0
-
-    magazine.forEach { char ->
-        if (magazineMap.contains(char)) {
-            magazineMap[char] = magazineMap[char]!! + 1
-        } else {
-            magazineMap[char] = 1
-        }
-    }
 
     ransomNote.forEach { char ->
         if (ransomMap.contains(char)) {
@@ -48,13 +38,14 @@ fun canConstruct(ransomNote: String, magazine: String): Boolean {
         }
     }
 
-    magazineMap.forEach { (key, value) ->
-        if (ransomMap.contains(key) && ransomMap.getValue(key) <= value) {
-            counter++
+    magazine.forEach { char ->
+        if (ransomMap.contains(char)) {
+            ransomMap[char] = ransomMap[char]!! - 1
+            if (ransomMap[char] == 0) ransomMap.remove(char)
         }
     }
 
-    return counter == ransomMap.size
+    return ransomMap.isEmpty()
 }
 
 fun main() {
