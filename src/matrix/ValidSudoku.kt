@@ -27,10 +27,10 @@ fun isValidSudoku(board: Array<CharArray>): Boolean {
     var bottom = board.size
 
     val boxMap = HashMap<Pair<Int, Int>, String>()
-    val xNumbers = BooleanArray(10) { false }
-    val yNumbers = BooleanArray(10) { false }
 
     while (left != right && bottom != top) {
+        val xNumbers = BooleanArray(10) { false }
+        val yNumbers = BooleanArray(10) { false }
         // columns
         for (i in top until board.size) {
             board[i][left]
@@ -41,11 +41,10 @@ fun isValidSudoku(board: Array<CharArray>): Boolean {
                     } else {
                         boxMap[key] = it.toString()
                     }
-                    if (!yNumbers[it]) {
-                        yNumbers[it] = true
-                    } else {
+                    if (yNumbers[it]) {
                         return false
                     }
+                    yNumbers[it] = true
                 }
         }
         left++
@@ -54,18 +53,13 @@ fun isValidSudoku(board: Array<CharArray>): Boolean {
         for (j in right - 1 downTo 0) {
             board[bottom - 1][j]
                 .convertToInt()?.let {
-                    if (!xNumbers[it]) {
-                        xNumbers[it] = true
-                    } else {
+                    if (xNumbers[it]) {
                         return false
                     }
+                    xNumbers[it] = true
                 }
         }
         bottom--
-
-        // if we got there than no duplicates on this step, fill arrays with false and continue
-        xNumbers.fill(false)
-        yNumbers.fill(false)
     }
 
     for (value in boxMap.values) {
