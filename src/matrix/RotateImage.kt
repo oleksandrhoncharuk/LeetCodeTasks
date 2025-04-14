@@ -34,14 +34,14 @@ fun rotate(matrix: Array<IntArray>) {
     var savedItem = matrix[0][0]
     var count = 0
 
-    while (top <= bottom || left <= right) {
-        for (i in 1 until right) {
+    while (top != bottom - 1 || left != right - 1) {
+        for (i in left until right) {
             val temp = matrix[top][i]
             matrix[top][i] = savedItem
             savedItem = temp
         }
 
-        for (i in 1 until bottom) {
+        for (i in 1 + left until bottom) {
             val temp = matrix[i][right - 1]
             matrix[i][right - 1] = savedItem
             savedItem = temp
@@ -60,11 +60,13 @@ fun rotate(matrix: Array<IntArray>) {
         }
 
         count++
-        if (count == matrix.size - 1) {
+        if (count >= bottom - 1 - top) {
             top++
             left++
             right--
             bottom--
+            if (top == bottom || left == right) break
+            savedItem = matrix[top][left]
             count = 0
         }
     }
@@ -84,6 +86,30 @@ fun main() {
     for (i in 0 until matrix1.size) {
         for (j in 0 until matrix1[i].size) {
             print("${matrix1[i][j]} ")
+        }
+        println()
+    }
+
+    // Input: matrix = [[5,1,9,11],[2,4,8,10],[13,3,6,7],[15,14,12,16]]
+    // Output:
+    // [[15,13,2,5],
+    // [14,3,4,1],
+    // [12,6,8,9],
+    // [16,7,10,11]]
+    println()
+
+    val matrix2 = arrayOf(
+        intArrayOf(5, 1, 9, 11),
+        intArrayOf(2,4,8,10),
+        intArrayOf(13,3,6,7),
+        intArrayOf(15,14,12,16)
+    )
+
+    rotate(matrix2)
+
+    for (i in 0 until matrix2.size) {
+        for (j in 0 until matrix2[i].size) {
+            print("${matrix2[i][j]} ")
         }
         println()
     }
