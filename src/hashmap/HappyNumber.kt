@@ -40,7 +40,7 @@ fun isHappy(n: Int): Boolean {
     return if (sum == 1) {
         true
     } else if (hashSet.contains(sum)) {
-        return false
+        false
     } else {
         hashSet.add(sum)
         isHappy(sum)
