@@ -44,29 +44,72 @@ package matrix
  */
 
 fun gameOfLife(board: Array<IntArray>) {
+    for (row in 0 until board.size) {
+        for (column in 0 until board[row].size) {
+            val neighbors = board.countNeighborsFor(row, column)
 
-}
-
-private fun Int.mapTable(newValue: Int): Int {
-    when {
-        this == 0 && newValue == 0 -> return 0
-        this == 1 && newValue == 0 -> return 1
-        this == 0 && newValue == 1 -> return 2
-        this == 1 && newValue == 1 -> return 3
+            if (board[row][column] == 1 || board[row][column] == 3) {
+                if (neighbors in 2..3) {
+                    board[row][column] = 3
+                }
+            } else if (board[row][column] == 0 || board[row][column] == 2) {
+                if (neighbors == 3) {
+                    board[row][column] = 2
+                }
+            }
+        }
     }
 
-    return 0
+    for (i in 0 until board.size) {
+        for (j in 0 until board[i].size) {
+            val state = board[i][j]
+            board[i][j] = state.getNewValue()
+        }
+    }
 }
 
-private fun Int.getNewValue(): Int {
-    when(this) {
-        0, 1 -> return 0
-        2, 3 -> return 1
+private fun Array<IntArray>.countNeighborsFor(row: Int, column: Int): Int {
+    var neighbors = 0
+    val rowMax = this.size
+    val columnMax = this[0].size
+
+    for (i in row - 1 until row + 2) {
+        for (j in column - 1 until column + 2) {
+            if ((i == row && j == column) ||
+                i < 0 || j < 0 || i >= rowMax
+                || j >= columnMax) {
+                continue
+            } else if (this[i][j] == 1 || this[i][j] == 3) {
+                neighbors++
+            }
+        }
     }
 
-    return 0
+    return neighbors
 }
+
+private fun Int.getNewValue() = when(this) {
+        0, 1 -> 0
+        2, 3 -> 1
+        else -> 0
+    }
 
 fun main() {
+    // Input: board = [[0,1,0],[0,0,1],[1,1,1],[0,0,0]]
+    // * Output: [[0,0,0],[1,0,1],[0,1,1],[0,1,0]]
+    val board1 = arrayOf(
+        intArrayOf(0,1,0),
+        intArrayOf(0,0,1),
+        intArrayOf(1,1,1),
+        intArrayOf(0,0,0),
+    )
 
+    gameOfLife(board1)
+
+    board1.forEach { ar ->
+        ar.forEach {
+            print("$it ")
+        }
+        println()
+    }
 }
