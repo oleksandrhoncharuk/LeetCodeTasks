@@ -47,19 +47,19 @@ fun gameOfLife(board: Array<IntArray>) {
 
 }
 
-private fun mapTable(originalValue: Int, newValue: Int): Int {
+private fun Int.mapTable(newValue: Int): Int {
     when {
-        originalValue == 0 && newValue == 0 -> return 0
-        originalValue == 1 && newValue == 0 -> return 1
-        originalValue == 0 && newValue == 1 -> return 2
-        originalValue == 1 && newValue == 1 -> return 3
+        this == 0 && newValue == 0 -> return 0
+        this == 1 && newValue == 0 -> return 1
+        this == 0 && newValue == 1 -> return 2
+        this == 1 && newValue == 1 -> return 3
     }
 
     return 0
 }
 
-private fun getNewValue(mappedValue: Int): Int {
-    when(mappedValue) {
+private fun Int.getNewValue(): Int {
+    when(this) {
         0, 1 -> return 0
         2, 3 -> return 1
     }
