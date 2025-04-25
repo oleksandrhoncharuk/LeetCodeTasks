@@ -84,6 +84,6 @@ fun TreeNode?.print() {
     }
 
     print("${this.`val`}, ")
-    this.right.print()
     this.left.print()
+    this.right.print()
 }
