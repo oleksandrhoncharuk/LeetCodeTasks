@@ -75,3 +75,5 @@ class TreeNode(var `val`: Int) {
     var left: TreeNode? = null
     var right: TreeNode? = null
 }
+
+fun TreeNode?.isLeaf() = this != null && this.left == null && this.right == null
