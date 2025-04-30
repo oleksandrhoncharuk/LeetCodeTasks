@@ -31,9 +31,7 @@ import java.util.Queue
 fun averageOfLevels(root: TreeNode?): DoubleArray {
     val list = mutableListOf<Double>()
 
-    if (root == null) {
-        return list.toDoubleArray()
-    }
+    if (root == null) return list.toDoubleArray()
 
     val queue: Queue<TreeNode> = LinkedList()
     queue.offer(root)
@@ -49,6 +47,7 @@ fun averageOfLevels(root: TreeNode?): DoubleArray {
             node.left?.let { queue.offer(it) }
             node.right?.let { queue.offer(it) }
         }
+
         levelSum /= levelLength
         list.add(levelSum)
     }
@@ -62,8 +61,7 @@ fun main() {
     root.left = TreeNode(2)
     root.right = TreeNode(-3)
 
-    val list = averageOfLevels(root)
-    list.forEach {
+    averageOfLevels(root).forEach {
         print("$it ,")
     }
 }
