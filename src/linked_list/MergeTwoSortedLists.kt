@@ -34,42 +34,26 @@ package linked_list
 fun mergeTwoLists(list1: ListNode?, list2: ListNode?): ListNode? {
     var first = list1
     var second = list2
-    val list = ArrayList<Int>()
+    val result = ListNode(0)
+    var temp = result
 
-    while(first != null || second != null) {
+    while(true) {
         if (first == null) {
-            list.add(second!!.`val`)
-            second = second.next
+            temp.next = second
+            return result.next
         } else if (second == null) {
-            list.add(first.`val`)
-            first = first.next
-        } else if (first.`val` > second.`val`) {
-            list.add(second.`val`)
-            second = second.next
-        } else if (second.`val` > first.`val`) {
-            list.add(first.`val`)
-            first = first.next
-        } else if (first.`val` == second.`val`) {
-            list.add(first.`val`)
-            list.add(second.`val`)
-            first = first.next
+            temp.next = first
+            return result.next
+        } else if (first.`val` >= second.`val`) {
+            temp.next = ListNode(second.`val`)
             second = second.next
         } else {
-            break
+            temp.next = ListNode(first.`val`)
+            first = first.next
         }
+
+        temp = temp.next!!
     }
-
-    if (list.isEmpty()) return null
-
-    val result = ListNode(list[0])
-    var temp: ListNode? = result
-
-    for (i in 1 until list.size) {
-        temp!!.next = ListNode(list[i])
-        temp = temp.next
-    }
-
-    return result
 }
 
 fun main() {
