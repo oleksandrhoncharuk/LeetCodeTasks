@@ -31,79 +31,62 @@ package linked_list
  */
 
 fun addTwoNumbers(l1: ListNode?, l2: ListNode?): ListNode? {
-    if (l1 == null && l2 == null) return null
+    val list = ArrayList<Int>()
+    var first = l1
+    var second = l2
+    var carry = 0
 
-    var currentL1 = l1
-    var currentL2 = l2
-    var sum = currentL1!!.`val` + currentL2!!.`val`
+    while (first != null || second != null) {
+        val sum = carry + (first?.`val` ?: 0) + (second?.`val` ?: 0)
+        carry = sum / 10
+        list.add(sum % 10)
 
-    while (currentL1?.next != null && currentL2?.next != null) {
-
-    }
-
-    val l1String = buildString {
-        l1?.let {
-            append(it.`val`)
-            var currentNode = it
-
-            while (currentNode.next != null) {
-                append(currentNode.next!!.`val`)
-                currentNode = currentNode.next!!
-            }
+        if (first != null) {
+            first = first.next
+        }
+        if (second != null) {
+            second = second.next
         }
     }
 
-
-    val l2String = buildString {
-        l2?.let {
-            append(it.`val`)
-            var currentNode = it
-
-            while (currentNode.next != null) {
-                append(currentNode.next!!.`val`)
-                currentNode = currentNode.next!!
-            }
-        }
+    if (carry != 0) {
+        list.add(carry)
     }
 
-    val list = (l1String.toInt() + l2String.toInt())
-        .toString()
-        .map { it.digitToInt() }
-        .reversed()
+    val result = ListNode(list[0])
+    var mResult: ListNode? = result
 
-    val node = ListNode(list[0])
-    var current: ListNode? = node
     for (i in 1 until list.size) {
-        current!!.next = ListNode(list[i])
-        current = current.next
+        mResult!!.next = ListNode(list[i])
+        mResult = mResult.next
     }
 
-    return node
+    return result
 }
 
 fun main() {
     // l1 =
     //[2,4,3]
     //l2 =
-    //[5,6,4]
-    val first = ListNode(2)
-    val firstNext = ListNode(4)
-    firstNext.next = ListNode(3)
-    first.next = firstNext
-
-    val second = ListNode(5)
-    val secondNext = ListNode(6)
-    secondNext.next = ListNode(4)
-    second.next = secondNext
-
-    val result = addTwoNumbers(first, second)
-
-    print(result?.`val`)
-    var cur = result
-    while (cur?.next != null) {
-        print(cur.next!!.`val`)
-        cur = cur.next
-    }
+//    //[5,6,4]
+//    val first = ListNode(2)
+//    val firstNext = ListNode(4)
+//    firstNext.next = ListNode(3)
+//    first.next = firstNext
+//
+//    val second = ListNode(5)
+//    val secondNext = ListNode(6)
+//    secondNext.next = ListNode(4)
+//    second.next = secondNext
+//
+//    val result = addTwoNumbers(first, second)
+//
+//    print(result?.`val`)
+//    var cur = result
+//    while (cur?.next != null) {
+//        print(cur.next!!.`val`)
+//        cur = cur.next
+//    }
 
     // [2,4,9]
     //l2 =
@@ -114,4 +97,31 @@ fun main() {
     //[8,9,8,5]
     //Expected
     //[7,0,4,0,1]
+
+    //[9,9,9,9,9,9,9]
+    //l2 =
+    //[9,9,9,9]
+    val first1 = ListNode(9)
+    val firstNext1 = ListNode(9)
+    val firstNext2 = ListNode(9)
+    val firstNext3 = ListNode(9)
+    val firstNext4 = ListNode(9)
+    firstNext3.next = firstNext4
+    firstNext2.next = firstNext3
+    firstNext1.next = firstNext2
+    first1.next = firstNext1
+
+    val second1 = ListNode(9)
+    val secondNext1 = ListNode(9)
+    secondNext1.next = ListNode(9)
+    second1.next = secondNext1
+
+    val result1 = addTwoNumbers(first1, second1)
+
+    print(result1?.`val`)
+    var cur1 = result1
+    while (cur1?.next != null) {
+        print(cur1.next!!.`val`)
+        cur1 = cur1.next
+    }
 }
