@@ -51,12 +51,7 @@ fun isAnagram(s: String, t: String): Boolean {
 }
 
 private fun HashMap<Char, Int>.setValueFor(char: Char) {
-    if (this.contains(char)) {
-        val count = this.getValue(char)
-        this[char] = count + 1
-    } else {
-        this[char] = 1
-    }
+    this[char] = this.getOrDefault(char, 0) + 1
 }
 
 fun main() {
